@@ -1,15 +1,16 @@
-import { VStack, Box, Input, Text, Button, Alert } from "@chakra-ui/react";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { IoLogoGoogle } from "react-icons/io";
-import { useUserAuth } from "../context/UserAuthContext";
-import { useState } from "react";
+import React, { useState } from "react";
 
-function Login() {
+import { VStack, Box, Input, Text, Button, Alert } from "@chakra-ui/react";
+import { IoLogoGoogle } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import { async } from "@firebase/util";
+
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn } = useUserAuth();
+  const { signUp } = useUserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,12 +20,13 @@ function Login() {
       console.log(email);
       console.log(password);
       setError("");
-      await logIn(email, password);
-      navigate("/home");
+      await signUp(email, password);
+      navigate("/");
     } catch (err) {
       setError(err.message);
     }
   };
+
   return (
     <VStack h={"100vh"} justifyContent={"center"} align="center">
       <Box
@@ -43,28 +45,28 @@ function Login() {
           fontWeight="extrabold"
           padding={5}
         >
-          Login
+          Sign up
         </Text>
         {error && (
-          <Alert bg={"red"} variant={"danger"}>
+          <Alert bg={"red"} variant="danger">
             {error}
           </Alert>
         )}
         <form onSubmit={handleSubmit}>
           <Input
+            type="email"
             borderWidth={3}
             w={"80%"}
             mb={5}
-            type="email"
             placeholder="email"
             p={5}
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
             borderWidth={3}
+            type="password"
             w={"80%"}
             mb={5}
-            type="password"
             placeholder="password"
             p={5}
             onChange={(e) => setPassword(e.target.value)}
@@ -76,18 +78,14 @@ function Login() {
             display={"block"}
             mb={5}
           >
-            Login
+            Register
           </Button>
         </form>
-        <Button minW={"80%"} colorScheme={"teal"}>
-          <IoLogoGoogle size={20} mr={10} />
-          <Text ml={30}>Login With Google</Text>
-        </Button>
         <Text mt={8}>
-          Dont have an account?{" "}
-          <Link to="/signup">
+          Already have an account?{" "}
+          <Link to="/">
             <Text display={"inline"} textDecoration={"underline"}>
-              Sign up
+              Log in
             </Text>
           </Link>
         </Text>
@@ -96,4 +94,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
