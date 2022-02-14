@@ -9,7 +9,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn } = useUserAuth();
+  const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -25,6 +25,17 @@ function Login() {
       setError(err.message);
     }
   };
+
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await googleSignIn();
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <VStack h={"100vh"} justifyContent={"center"} align="center">
       <Box
@@ -79,7 +90,7 @@ function Login() {
             Login
           </Button>
         </form>
-        <Button minW={"80%"} colorScheme={"teal"}>
+        <Button onClick={handleGoogleSignIn} minW={"80%"} colorScheme={"teal"}>
           <IoLogoGoogle size={20} mr={10} />
           <Text ml={30}>Login With Google</Text>
         </Button>
