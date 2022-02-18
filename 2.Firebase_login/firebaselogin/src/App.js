@@ -4,6 +4,7 @@ import Signup from "./components/signup";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Home from "./components/home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPassword from "./components/forgotPassword";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           />
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
         </Routes>
       </UserAuthContextProvider>
     </>

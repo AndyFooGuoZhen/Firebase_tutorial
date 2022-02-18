@@ -94,6 +94,11 @@ function Login() {
           <IoLogoGoogle size={20} mr={10} />
           <Text ml={30}>Login With Google</Text>
         </Button>
+        <Link to={"/forgotPassword"}>
+          <Text pt={8} textDecoration={"underline"}>
+            Forgot Password?
+          </Text>
+        </Link>
         <Text mt={8}>
           Dont have an account?{" "}
           <Link to="/signup">
